@@ -1,10 +1,12 @@
 <%- include('partials/_header.ejs'); %>
 
 <%- include('partials/_navigation.ejs'); %>
+
+<% if(user) { %>
 	
 	<div class="all-title-box">
 		<div class="container text-center">
-			<h1>Course Single<span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span></h1>
+			<h1><%=user.name%><span class="m_1">Lorem Ipsum dolroin gravida nibh vel velit.</span></h1>
 		</div>
 	</div>
 	
@@ -93,6 +95,7 @@
         </div><!-- end container -->
     </div><!-- end section -->
 
+	<%}%>
     <%- include('partials/_footer.ejs'); %>
 
     <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
@@ -102,5 +105,3 @@
     <!-- ALL PLUGINS -->
     <script src="js/custom.js"></script>
 
-</body>
-</html>

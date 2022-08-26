@@ -17,7 +17,7 @@
                     <li class="nav-item <%= page_name === 'courses'&& 'active'%>"><a class="nav-link" href="/courses">Courses</a></li>
                     <!--kullanıcı girdiği zaman dashboard butonu gözükür if ile-->
                     <% if(userIN) { %> 
-                    <li class="nav-item <%= page_name === 'dashboard'&& 'active'%>"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    <li class="nav-item <%= page_name === 'dashboard'&& 'active'%>"><a class="nav-link" href="users/dashboard">Dashboard</a></li>
                     <% } %>
                     <li class="nav-item <%= page_name === 'contact'&& 'active'%>"><a class="nav-link" href="/contact">Contact</a></li>
                 </ul>
@@ -30,7 +30,8 @@
 
                 <% if(userIN) { %> 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="hover-btn-new log mr-2" href="users/logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span></a></li>
+                        <!-- dashboard sayfasından logout yapamadığım için usersin soluna slash koydum-->
+                        <li><a class="hover-btn-new log mr-2" href="/users/logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span></a></li>
    
                     </ul>
                     <% } %>
