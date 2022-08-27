@@ -9,10 +9,7 @@ exports.createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
     //bu bir simülasyondur ve hatayı yakalamak için try catch yazdık
-    res.status(201).json({
-      status: "success",
-      user,
-    });
+    res.status(201).redirect("/login");
   } catch (error) {
     res.status(400).json({
       status: "fail",
