@@ -25,7 +25,8 @@
 								<h2><a href="/courses/<%=courses[i].slug%>" title=""><%=courses[i].name%></a></h2>
 							</div>
 							<div class="course-desc">
-								<p><%=courses[i].description%> </p>
+								<!--substring dediği şey descriptionun karakter saysıını 100 ile sınırlayıp sonuna üç nokta ekledi-->
+								<p><%=courses[i].description.substring(0, 100)+"..."%> </p>
 							</div>
 						</div>
 						<div class="course-meta-bot">

@@ -14,13 +14,20 @@
                 <div class="col-lg-9 blog-post-single">
                     <div class="blog-item">
 						<div class="image-blog">
-							<img src="images/blog_single.jpg" alt="" class="img-fluid">
+							<img src="/images/blog_single.jpg" alt="" class="img-fluid">
 						</div>
 						<div class="post-content">
+							<!--çıkış yapmışken kursları görür fakat enroll butonunu göremez ve giriş yapmış
+							ve kursa sahip bir öğrenci ise o kursun birdaha enroll butonunu görmez(release edene kadar)-->
+							<% if (user && !(user.courses.includes(course._id))) { %>
 							<div class="post-date">
-								<span class="day">30</span>
-								<span class="month">Nov</span>
+								<form method="POST" action="/courses/enroll">
+									<input type="hidden" name="course_id" value="<%= course._id %>">
+									<button class="btn btn-lg btn-warning text-white"><span>ENROLL</span></button>
+								</form>
 							</div>
+							<% } %>
+
 							<div class="meta-info-blog">
 								<span><i class="fa fa-calendar"></i> <a href="#">May 11, 2015</a> </span>
 							</div>
@@ -37,20 +44,10 @@
 					
 					<div class="blog-author">
 						<div class="author-bio">
-							<h3 class="author_name"><a href="#">Tom Jobs</a></h3>
-							<h5>CEO at <a href="#">SmartEDU</a></h5>
-							<p class="author_det">
-								Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus omnis saperet docendi nec, eos ea alii molestiae aliquand.
-							</p>
+							<h3 class="author_name"><%=course.user.name%></h3>
+							
 						</div>
-						<div class="author-desc">
-							<img src="/images/author.jpg" alt="about author">
-							<ul class="author-social">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-skype"></i></a></li>
-							</ul>
-						</div>
+						
 					</div>
 					
                 </div><!-- end col -->

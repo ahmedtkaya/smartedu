@@ -26,6 +26,11 @@ const CourseSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
+  user: {
+    //kurslarla kategori bağlantılı olacağı için course.js modelinin içine Category.js modelini import etmemiz gerek
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 //bununla url kısmında beraber id yerine name gözükecek
 CourseSchema.pre("validate", function (next) {
