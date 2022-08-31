@@ -11,8 +11,9 @@ exports.getContactPage = (req, res) => {
   });
 };
 exports.sendEmail = async (req, res) => {
-  //output kısmı mail gönderildiğinde içeriğinde ne yazmalı onun belirlendiği kısım
-  const outputMessage = `
+  try {
+    //output kısmı mail gönderildiğinde içeriğinde ne yazmalı onun belirlendiği kısım
+    const outputMessage = `
   <h1>Mail Details </h1>
   <ul>
   <li>Name: ${req.body.name}</li>
@@ -21,33 +22,39 @@ exports.sendEmail = async (req, res) => {
   <h1>Message</h1>
   <p>${req.body.message} </p>
   `;
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: "atkahmed9924@gmail.com", // gmail account
-      pass: "wsatfpywxaaodvhl", // gmail password
-    },
-  });
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: "atkahmed9924@gmail.com", // gmail account
+        pass: "wsatfpywxaaodvhl11", // gmail password
+      },
+    });
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Smart Edu contact form" <atkahmed9924@gmail.com>', // sender address
-    to: "atkaya03@gmail.com", //mailin geldiği mail adresi
-    subject: "Smart Edu contact form", // Subject line
-    html: outputMessage, // html body
-  });
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Smart Edu contact form" <atkahmed9924@gmail.com>', // sender address
+      to: "atkaya03@gmail.com", //mailin geldiği mail adresi
+      subject: "Smart Edu contact form", // Subject line
+      html: outputMessage, // html body
+    });
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 
-  res.status(200).redirect("contact");
+    req.flash("success", "We received your message successfully");
+
+    res.status(200).redirect("contact");
+  } catch (err) {
+    req.flash("error", `Something went wrong!`);
+    res.status(200).redirect("contact");
+  }
 };
 
 exports.getIndexPage = (req, res) => {
