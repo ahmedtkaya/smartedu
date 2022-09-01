@@ -27,6 +27,7 @@ app.set("view engine", "ejs");
 global.userIN = null;
 
 //Middleware
+
 app.use(express.static("public"));
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true }));

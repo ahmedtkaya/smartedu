@@ -28,12 +28,28 @@ const UserSchema = new Schema({
     },
   ],
 });
-
+/*
 UserSchema.pre("save", function (next) {
   const user = this;
   bcrypt.hash(user.password, 10, (error, hash) => {
     user.password = hash;
     next();
+  });
+});
+*/
+
+//mongoose were changing password after enroll course and fixed that codes!!!
+UserSchema.pre("save", function (next) {
+  const user = this;
+  if (!user.isModified("password")) return next();
+
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return next(err);
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
   });
 });
 
