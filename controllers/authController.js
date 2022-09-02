@@ -67,10 +67,25 @@ exports.getDashboardPage = async (req, res) => {
   ); //dahboard sayfasında db den name gösterme
   const categories = await Category.find();
   const courses = await Course.find({ user: req.session.userID });
+  const users = await User.find(); // tüm kullanıcıları admine yolla
   res.status(200).render("dashboard", {
     page_name: "dashboard",
     user,
     categories,
     courses,
+    users,
   });
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndRemove(req.params.id); //userları siler
+    await Course.deleteMany({ user: req.params.id }); // teacher silince onun yarattığı kursları da silmek için bunu yazıyoruz
+    res.status(200).redirect("/users/dashboard");
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      error,
+    });
+  }
 };
